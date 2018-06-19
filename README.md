@@ -43,5 +43,6 @@ Clipboard.reset() // 클립보드 기능 제거(초기화)
 | |  <center>Samsung Internet</center> |  <center>Chrome for Android</center> |  <center>Firefox Mobile</center> | <center>Safari Mobile</center> |
  ------------- | ------------- | ------------- | ------------- | -------------
 |**ClipboardData** | <center>X</center> | <center>X</center> |<center>X</center> |<center>X</center> |
-|**execCommand** | <center>6.4+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> |
+|**execCommand** | <center>6.4+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> | 
+
 *SamsungInternet : 6.4 미만 버전 체크 필요*
