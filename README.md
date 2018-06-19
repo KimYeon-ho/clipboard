@@ -7,27 +7,26 @@
 >기본
 
 ```javascript
-new Clipboard([[selector]], {
-    text: [[message]],
-    promptMsg: [[prompt information message]],
-    callback: [[callback function]]
+new Clipboard('selector', {
+    text: 'message'
 });
 ```
+
 >Options
 
-```
-@text // 복사할 키워드
-@promptMsg // prompt 창 안내 메시지 (default: '해당 문구를 복사해주세요.')
+```javascript
+@text // 복사할 키워드    
+@promptMsg // prompt 창 안내 메시지 (default: '해당 문구를 복사해주세요.')    
 @callback // 콜백 함수 (default: function(){ alert('클립보드에 해당 문구가 복사되었습니다.')} )
 ```
+
 >Method
 
-```
-Clipboard.copy() // 메서드를 통한 복사 실행
-Clipboard.initOption(options) // 옵션 변경
+```javascript
+Clipboard.copy() // 메서드를 통한 복사 실행   
+Clipboard.initOption(options) // 옵션 변경    
 Clipboard.reset() // 클립보드 기능 제거(초기화)
 ```
-
 
 ## 주의사항
 - 선택자 인식 우선순위 : querySelector > $(selector) > getElementById
