@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>클립보드 복사</title>
+    <style>
+        button{width:200px;height:40px;font-size:16px;}
+        a{color:#666;font-size:16px;}
+    </style>
+</head>
+<body>
+    <button type="button" id="btn1" class="button">메시지 복사해가기</button>
+    <a href="#" id="btnCopy">[실행]</a>
+    <a href="#" id="btnOption">[옵션변경]</a>
+    <a href="#" id="btnReset">[초기화]</a>
+
+    <script src="js/clipboard.js"></script>
+    <script>
+        var clipboard1 = new Clipboard('#btn1', {
+                text: 'Google\nurl=www.google.com'
+            });
+
+        var btnCopyFunc = function(){
+                clipboard1.copy();
+            },
+            btnOptionFunc = function(){
+                clipboard1.initOption({
+                    callback: function(){
+                        alert('클립보드가 복사되었습니다.\n이용해 주셔서 감사합니다.');
+                    }
+                });
+                alert('기능이 변경되었습니다.');
+            },
+            btnResetFunc = function(){
+                clipboard1.reset();
+                alert('기능이 리셋되었습니다.');
+            };
+        if (window.addEventListener){
+            document.getElementById('btnCopy').addEventListener('click', btnCopyFunc);
+            document.getElementById('btnOption').addEventListener('click', btnOptionFunc);
+            document.getElementById('btnReset').addEventListener('click', btnResetFunc);
+        } else {
+            document.getElementById('btnCopy').attachEvent('onclick', btnCopyFunc);
+            document.getElementById('btnOption').attachEvent('onclick', btnOptionFunc);
+            document.getElementById('btnReset').attachEvent('onclick', btnResetFunc);
+        }
+    </script>
+</body>
+</html>
