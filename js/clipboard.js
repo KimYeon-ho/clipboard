@@ -14,35 +14,20 @@ function Clipboard(selector, options) {
     this._initEvent();
 }
 /**
- * @type {{
- * text: string,
- * promptMsg: string,
- * callback: Clipboard._defaultOptions.callback
- * }}
+ * @type {{text: string, promptMsg: string, callback: Clipboard._defaultOptions.callback}}
  * @private
  */
 Clipboard._defaultOptions = {
-    text: '복사할 키워드를 입력해주세요.', // 복사 대상 키워드
-    promptMsg: '해당 문구를 복사해주세요.', // 프롬포터 창 메시지
+    text: '복사할 키워드를 입력해주세요.',
+    promptMsg: '해당 문구를 복사해주세요.',
     callback: function () {
         alert('클립보드에 해당 문구가 복사되었습니다.');
-    } // 콜백 기능
+    }
 };
 /**
- * @type {{
- * reset: Clipboard.reset,
- * _removeEvent: Clipboard._removeEvent,
- * initOption: Clipboard.initOption,
- * _initEvent: Clipboard._initEvent,
- * copy: Clipboard.copy,
- * _setClipboardData: Clipboard._setClipboardData,
- * _createTxtBox: Clipboard._createTxtBox,
- * _setExecCommand: Clipboard._setExecCommand,
- * _complete: Clipboard._complete
- * }}
+ * @type {{reset: Clipboard.reset, _removeEvent: Clipboard._removeEvent, initOption: Clipboard.initOption, _initEvent: Clipboard._initEvent, copy: Clipboard.copy, _setClipboardData: Clipboard._setClipboardData, _createTxtBox: Clipboard._createTxtBox, _setExecCommand: Clipboard._setExecCommand, _complete: Clipboard._complete}}
  */
 Clipboard.prototype = {
-    // 이벤트 제거
     reset: function () {
         if ( !this.button ) return false;
         this._removeEvent();
@@ -61,7 +46,6 @@ Clipboard.prototype = {
             this.button.detachEvent('onclick', that._copyEvent);
         }
     },
-    // 옵션 설정
     initOption: function (options) {
         options = options || {text: undefined, promptMsg: undefined, callback: undefined};
         this._options = {
@@ -79,7 +63,6 @@ Clipboard.prototype = {
             this.button.attachEvent('onclick', that._copyEvent);
         }
     },
-    // 클립보드 복사 실행
     copy: function () {
         if ( !this.button ) return false;
         if (window.clipboardData) {
@@ -126,14 +109,11 @@ Clipboard.prototype = {
         }
     }
 };
-/**
- * Polyfill
- */
+
+/* Polyfill */
 if (!Function.prototype.bind) {
     Function.prototype.bind = function(oThis) {
         if (typeof this !== 'function') {
-            // ECMAScript 5 내부 IsCallable 함수와
-            // 가능한 가장 가까운 것
             throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
         }
         var aArgs   = Array.prototype.slice.call(arguments, 1),
@@ -146,7 +126,6 @@ if (!Function.prototype.bind) {
                     aArgs.concat(Array.prototype.slice.call(arguments)));
             };
         if (this.prototype) {
-            // Function.prototype은 prototype 속성이 없음
             fNOP.prototype = this.prototype;
         }
         fBound.prototype = new fNOP();

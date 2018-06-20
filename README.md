@@ -4,7 +4,7 @@
 
 ## 사용법
 
->기본
+### 기본
 
 ```javascript
 new Clipboard('selector', {
@@ -12,7 +12,7 @@ new Clipboard('selector', {
 });
 ```
 
->Options
+### Options
 
 ```javascript
 @text // 복사할 키워드    
@@ -20,7 +20,7 @@ new Clipboard('selector', {
 @callback // 콜백 함수 (default: function(){ alert('클립보드에 해당 문구가 복사되었습니다.')} )
 ```
 
->Method
+### Method
 
 ```javascript
 Clipboard.copy() // 메서드를 통한 복사 실행   
