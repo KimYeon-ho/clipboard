@@ -81,6 +81,7 @@ Clipboard.prototype = {
         txtBox.style.cssText = 'overflow:hidden;position:fixed;top:-1px;left:-1px;width:1px;height:1px;';
         this._txtBox = this.button.parentNode.appendChild(txtBox);
         this._txtBox.innerHTML = this._options.text;
+        this._txtBox.setAttribute('readonly', true);
         this._txtBox.select();
     },
     _setExecCommand: function () {
@@ -94,7 +95,7 @@ Clipboard.prototype = {
             }
         }
         finally {
-            this._txtBox.remove();
+            this.button.parentNode.removeChild(this._txtBox);
         }
     },
     _complete: function () {
