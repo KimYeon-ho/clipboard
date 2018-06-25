@@ -29,20 +29,22 @@ Clipboard.reset() // 클립보드 기능 제거(초기화)
 ```
 
 ## 주의사항
-- 선택자 인식 우선순위 : querySelector > $(selector) > getElementById
-- **jQuery 라이브러리가 없는 IE8 이하 환경**에서는 **id 셀렉터만 허용**된다.
+- 일치하는 선택자가 2개 이상일 경우 첫 element 요소에 적용됨.
 
 ## 브라우저 호환
 ### Desktop
-| |  <center>IE</center> |  <center>Chrome</center> |  <center>Firefox</center> | <center>Safari</center> |
------------- | ------------- | ------------- | ------------- | -------------
-|**ClipboardData** |<center>Support</center> | <center>X</center> |<center>X</center> |<center>X</center> |
-|**execCommand** | <center>9+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> |
+|  <center>IE</center> |  <center>Chrome</center> |  <center>Firefox</center> | <center>Safari</center> |
+------------ | ------------- | ------------- | -------------
+| <center>8+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> |
+
+> ID Selector 사용 시 IE 모든 버전 호환
+
+> jQuery 환경일 시 IE 모든 버전 호환
 
 ### Mobile
-| |  <center>Samsung Internet</center> |  <center>Chrome for Android</center> |  <center>Firefox Mobile</center> | <center>Safari Mobile</center> |
- ------------- | ------------- | ------------- | ------------- | -------------
-|**ClipboardData** | <center>X</center> | <center>X</center> |<center>X</center> |<center>X</center> |
-|**execCommand** | <center>6.4+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> | 
+|  <center>Samsung Internet</center> |  <center>Chrome for Android</center> |  <center>Firefox Mobile</center> | <center>Safari Mobile</center> |
+------------- | ------------- | ------------- | -------------
+| <center>6.4+</center> | <center>42+</center> | <center>41+</center> | <center>10+</center> |
 
-*SamsungInternet : 6.4 미만 버전 체크 필요*
+
+> SamsungInternet : 6.4 미만 버전 호환 체크 필요

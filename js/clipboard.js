@@ -4,12 +4,11 @@
  * @constructor
  */
 function Clipboard(selector, options) {
-    this.button = typeof document.querySelector === 'function' ? document.querySelector(selector) : window.$ ? $(selector)[0] : document.getElementById(selector.split('').slice(1).join(''));
+    this.button = this._initButton(selector);
     this._options = null;
     this._txtBox = null;
     this._success = true;
     this._isPrompt = false;
-    this._copyEvent = null;
     this.initOption(options);
     this._initEvent();
 }
@@ -28,6 +27,23 @@ Clipboard._defaultOptions = {
  * @type {{reset: Clipboard.reset, _removeEvent: Clipboard._removeEvent, initOption: Clipboard.initOption, _initEvent: Clipboard._initEvent, copy: Clipboard.copy, _setClipboardData: Clipboard._setClipboardData, _createTxtBox: Clipboard._createTxtBox, _setExecCommand: Clipboard._setExecCommand, _complete: Clipboard._complete}}
  */
 Clipboard.prototype = {
+    _initButton : function (selector){
+        if ( typeof document.querySelector === 'function' ){
+            return document.querySelector(selector);
+        } else if ( selector.indexOf('#') !== -1 && selector.split('#').slice(-1).toString().match(/[^A-Za-z0-9-\-_]/) === null ) {
+            return document.getElementById(selector.split('#').slice(-1).toString());
+        } else {
+            if ( window.$ ) {
+                if ( typeof window.$.fn === 'object' )
+                    return $(selector)[0];
+            }
+            if ( window.jQuery ) {
+                if ( typeof window.jQuery.fn === 'object' )
+                    return jQuery(selector)[0];
+            }
+        }
+        return false;
+    },
     reset: function () {
         if ( !this.button ) return false;
         this._removeEvent();
@@ -36,14 +52,18 @@ Clipboard.prototype = {
         this._txtBox = null;
         this._success = null;
         this._isPrompt = null;
-        this._copyEvent = null;
     },
     _removeEvent: function () {
         var that = this;
+        if ( !this.button ) return false;
         if (window.removeEventListener) {
-            this.button.removeEventListener('click', that._copyEvent);
+            this.button.removeEventListener('click', function(){
+                that.copy.call(that);
+            });
         } else {
-            this.button.detachEvent('onclick', that._copyEvent);
+            this.button.detachEvent('onclick', function(){
+                that.copy.call(that);
+            });
         }
     },
     initOption: function (options) {
@@ -56,11 +76,15 @@ Clipboard.prototype = {
     },
     _initEvent: function () {
         var that = this;
-        this._copyEvent = this.copy.bind(this);
+        if ( !this.button ) return false;
         if (window.addEventListener) {
-            this.button.addEventListener('click', that._copyEvent);
+            this.button.addEventListener('click', function(){
+                that.copy.call(that);
+            });
         } else {
-            this.button.attachEvent('onclick', that._copyEvent);
+            this.button.attachEvent('onclick', function(){
+                that.copy.call(that);
+            });
         }
     },
     copy: function () {
@@ -110,26 +134,3 @@ Clipboard.prototype = {
         }
     }
 };
-
-/* Polyfill */
-if (!Function.prototype.bind) {
-    Function.prototype.bind = function(oThis) {
-        if (typeof this !== 'function') {
-            throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
-        }
-        var aArgs   = Array.prototype.slice.call(arguments, 1),
-            fToBind = this,
-            fNOP    = function() {},
-            fBound  = function() {
-                return fToBind.apply(this instanceof fNOP
-                    ? this
-                    : oThis,
-                    aArgs.concat(Array.prototype.slice.call(arguments)));
-            };
-        if (this.prototype) {
-            fNOP.prototype = this.prototype;
-        }
-        fBound.prototype = new fNOP();
-        return fBound;
-    };
-}

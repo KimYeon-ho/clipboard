@@ -11,14 +11,14 @@
     </style>
 </head>
 <body>
-    <button type="button" id="btn1" class="button">메시지 복사해가기</button>
+    <button type="button" class="button">메시지 복사해가기</button>
     <a href="#" id="btnCopy">[실행]</a>
     <a href="#" id="btnOption">[옵션변경]</a>
     <a href="#" id="btnReset">[초기화]</a>
 
     <script src="js/clipboard.js"></script>
     <script>
-        var clipboard1 = new Clipboard('#btn1', {
+        var clipboard1 = new Clipboard('.button', {
                 text: 'Google\nurl=www.google.com'
             });
 
