@@ -24,7 +24,7 @@ Clipboard._defaultOptions = {
     }
 };
 /**
- * @type {{reset: Clipboard.reset, _removeEvent: Clipboard._removeEvent, initOption: Clipboard.initOption, _initEvent: Clipboard._initEvent, copy: Clipboard.copy, _setClipboardData: Clipboard._setClipboardData, _createTxtBox: Clipboard._createTxtBox, _setExecCommand: Clipboard._setExecCommand, _complete: Clipboard._complete}}
+ * @type {{_initButton: Clipboard._initButton, reset: Clipboard.reset, _removeEvent: Clipboard._removeEvent, initOption: Clipboard.initOption, _initEvent: Clipboard._initEvent, copy: Clipboard.copy, _setClipboardData: Clipboard._setClipboardData, _createTxtBox: Clipboard._createTxtBox, _setExecCommand: Clipboard._setExecCommand, _complete: Clipboard._complete}}
  */
 Clipboard.prototype = {
     _initButton : function (selector){
