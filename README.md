@@ -23,7 +23,7 @@ new Clipboard('selector', {
 ### Method
 
 ```javascript
-Clipboard.copy() // 메서드를 통한 복사 실행   
+Clipboard.copy() // 메서드를 통한 복사 실행
 Clipboard.initOption(options) // 옵션 변경    
 Clipboard.reset() // 클립보드 기능 제거(초기화)
 ```

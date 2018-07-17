@@ -1,7 +1,15 @@
 /**
- * @param selector
- * @param options
+ * - clipboardData, execCommand 메서드를 통한 클립보드 복사 기능 구현.
+ * - 미지원 브라우저에서 prompt 창을 통한 카피텍스트 노출.
+ * @param selector {string} '#button', '.button1', '.wrap .button1' ...
+ * @param options {object} {
+ * text: {string},
+ * promptMsg: {string},
+ * callback: {function}
+ * }
  * @constructor
+ * @version v1.0
+ * @author jaden1.kim@cheilpengtai.com
  */
 function Clipboard(selector, options) {
     this.button = this._initButton(selector);
@@ -12,10 +20,6 @@ function Clipboard(selector, options) {
     this.initOption(options);
     this._initEvent();
 }
-/**
- * @type {{text: string, promptMsg: string, callback: Clipboard._defaultOptions.callback}}
- * @private
- */
 Clipboard._defaultOptions = {
     text: '복사할 키워드를 입력해주세요.',
     promptMsg: '해당 문구를 복사해주세요.',
@@ -23,9 +27,6 @@ Clipboard._defaultOptions = {
         alert('클립보드에 해당 문구가 복사되었습니다.');
     }
 };
-/**
- * @type {{_initButton: Clipboard._initButton, reset: Clipboard.reset, _removeEvent: Clipboard._removeEvent, initOption: Clipboard.initOption, _initEvent: Clipboard._initEvent, copy: Clipboard.copy, _setClipboardData: Clipboard._setClipboardData, _createTxtBox: Clipboard._createTxtBox, _setExecCommand: Clipboard._setExecCommand, _complete: Clipboard._complete}}
- */
 Clipboard.prototype = {
     _initButton : function (selector){
         if ( typeof document.querySelector === 'function' ){
@@ -44,28 +45,44 @@ Clipboard.prototype = {
         }
         return false;
     },
+    /**
+     * - 초기화 이벤트 핸들러
+     */
     reset: function () {
-        if ( !this.button ) return false;
-        this._removeEvent();
-        this.button = null;
-        this._options = null;
-        this._txtBox = null;
-        this._success = null;
-        this._isPrompt = null;
+        if ( this.button ){
+            this._removeEvent();
+            this.button = null;
+            this._options = null;
+            this._txtBox = null;
+            this._success = null;
+            this._isPrompt = null;
+        }
     },
     _removeEvent: function () {
         var that = this;
         if ( !this.button ) return false;
         if (window.removeEventListener) {
             this.button.removeEventListener('click', function(){
-                that.copy.call(that);
+                that.copy();
+            });
+        } else if (window.detachEvent) {
+            this.button.detachEvent('onclick', function(){
+                that.copy();
             });
         } else {
-            this.button.detachEvent('onclick', function(){
-                that.copy.call(that);
-            });
+            this.button.onclick = function(){
+                that.copy();
+            };
         }
     },
+    /**
+     * - 옵션 재설정
+     * @param options {object} {
+     * text: {string},
+     * promptMsg: {string},
+     * callback: {function}
+     * }
+     */
     initOption: function (options) {
         options = options || {text: undefined, promptMsg: undefined, callback: undefined};
         this._options = {
@@ -79,23 +96,32 @@ Clipboard.prototype = {
         if ( !this.button ) return false;
         if (window.addEventListener) {
             this.button.addEventListener('click', function(){
-                that.copy.call(that);
+                that.copy();
+            });
+        } else if (window.attachEvent){
+            this.button.attachEvent('onclick', function(){
+                that.copy();
             });
         } else {
-            this.button.attachEvent('onclick', function(){
-                that.copy.call(that);
-            });
+            this.button.onclick = function(){
+                that.copy();
+            }
         }
     },
+    /**
+     * - 카피 이벤트 핸들러
+     */
     copy: function () {
-        if ( !this.button ) return false;
-        if (window.clipboardData) {
-            this._setClipboardData();
-        } else {
-            this._createTxtBox();
-            this._setExecCommand();
+        console.log(this);
+        if ( this.button ){
+            if (window.clipboardData) {
+                this._setClipboardData();
+            } else {
+                this._createTxtBox();
+                this._setExecCommand();
+            }
+            this._complete();
         }
-        this._complete();
     },
     _setClipboardData: function () {
         window.clipboardData.setData('Text', this._options.text);
