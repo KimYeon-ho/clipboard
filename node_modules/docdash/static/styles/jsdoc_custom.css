@@ -1,0 +1,102 @@
+a,
+a:active {
+    color: #8da6ce;
+}
+
+h4.name {
+    background: #0095dd;
+}
+
+h4.name a {
+    color: #8da6ce;
+}
+
+h4.name a:hover {
+    border-bottom-color: #8da6ce;
+}
+
+nav a:hover,
+nav a:active {
+    color: #8da6ce;
+}
+
+nav > ul > li > a {
+    color: #8da6ce;
+}
+
+nav > h2 > a {
+    color: #8da6ce !important;
+}
+
+.type-signature {
+    color: #8da6ce;
+}
+
+.signature {
+    color: #f0f0f0;
+}
+
+.details {
+    border-left: 3px solid #ccc;
+}
+
+span.param-type, .params td .param-type, .param-type dd {
+    color: #8da6ce;
+}
+
+/**
+ * add
+ */
+nav h2:before {
+    content: unset;
+}
+h1 {
+    font-weight: bold;
+}
+
+h2:before {
+    content: '\2666';
+    padding-right: 5px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h3:before {
+    content: '-';
+    padding-right: 5px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+table th,
+table td {
+    padding: 0 1em;
+    border: 1px solid #ccc;
+}
+
+.description p:before,
+blockquote p:before {
+    content: '';
+    margin-right: .5em;
+    border-left: 3px solid #ccc;
+}
+
+blockquote {
+    margin-left: 0;
+}
+
+blockquote p {
+    line-height: 1;
+}
+
+table .description p:before {
+    content: unset;
+}
