@@ -1,15 +1,13 @@
 /**
- * - clipboardData, execCommand 메서드를 통한 클립보드 복사 기능 구현.
- * - 미지원 브라우저에서 prompt 창을 통한 카피텍스트 노출.
+ * @constructor
+ * @version v1.0
+ * @author jaden1.kim@cheilpengtai.com
  * @param selector {string} '#button', '.button1', '.wrap .button1' ...
  * @param options {object} {
  * text: {string},
  * promptMsg: {string},
  * callback: {function}
  * }
- * @constructor
- * @version v1.0
- * @author jaden1.kim@cheilpengtai.com
  */
 function Clipboard(selector, options) {
     this.button = this._initButton(selector);
@@ -46,7 +44,7 @@ Clipboard.prototype = {
         return false;
     },
     /**
-     * - 초기화 이벤트 핸들러
+     * 초기화 이벤트 핸들러
      */
     reset: function () {
         if ( this.button ){
@@ -76,7 +74,7 @@ Clipboard.prototype = {
         }
     },
     /**
-     * - 옵션 재설정
+     * 옵션 재설정
      * @param options {object} {
      * text: {string},
      * promptMsg: {string},
@@ -109,10 +107,9 @@ Clipboard.prototype = {
         }
     },
     /**
-     * - 카피 이벤트 핸들러
+     * 카피 이벤트 핸들러
      */
     copy: function () {
-        console.log(this);
         if ( this.button ){
             if (window.clipboardData) {
                 this._setClipboardData();
