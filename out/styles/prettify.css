@@ -4,13 +4,12 @@
 
 /* string content */
 .str {
-  /*color: #61ce3c;*/
-  color: #f5a75f;
+  color: #fbae2d;
 }
 
 /* a keyword */
 .kwd {
-  color: #dbde8d;
+  color: #fbde6d;
 }
 
 /* a comment */
@@ -25,7 +24,7 @@
 
 /* a literal value */
 .lit {
-  color: #dbde8d;
+  color: #fbde6d;
 }
 
 /* punctuation */
@@ -50,7 +49,7 @@
 
 /* a markup attribute name */
 .atn {
-  color: #dbde8d;
+  color: #fbde6d;
 }
 
 /* a markup attribute value */
@@ -60,7 +59,7 @@
 
 /* a declaration */
 .dec {
-  color: #EF5050;
+  color: #fbae2d;
 }
 
 /* a variable name */
