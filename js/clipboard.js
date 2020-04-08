@@ -1,6 +1,6 @@
 /**
  * @constructor
- * @version v1.0
+ * @version v1.01
  * @author jaden1.kim@cheilpengtai.com
  * @param selector {string} '#button', '.button1', '.wrap .button1' ...
  * @param options {object} {
@@ -124,12 +124,30 @@ Clipboard.prototype = {
         window.clipboardData.setData('Text', this._options.text);
     },
     _createTxtBox: function () {
-        var txtBox = document.createElement('textarea');
-        txtBox.style.cssText = 'overflow:hidden;position:fixed;top:-1px;left:-1px;width:1px;height:1px;';
-        this._txtBox = this.button.parentNode.appendChild(txtBox);
+        this._txtBox = document.createElement('textarea');
+        this._txtBox.style.cssText = 'overflow:hidden;position:fixed;top:-1px;left:-1px;width:1px;height:1px;';
         this._txtBox.innerHTML = this._options.text;
-        this._txtBox.setAttribute('readonly', true);
-        this._txtBox.select();
+        this.button.parentNode.appendChild(this._txtBox);
+
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            var oldContentEditable = this._txtBox.contentEditable;
+            var oldReadOnly = this._txtBox.readOnly;
+            var range = document.createRange();
+            this._txtBox.contentEditable = true;
+            this._txtBox.readOnly = false;
+            range.selectNodeContents(this._txtBox);
+            var selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            this._txtBox.setSelectionRange(0, 9999);
+
+            this._txtBox.contentEditable = oldContentEditable;
+            this._txtBox.readOnly = oldReadOnly;
+        } else {
+            this._txtBox.readOnly = true;
+            this._txtBox.select();
+            this._txtBox.setSelectionRange(0, 9999);
+        }
     },
     _setExecCommand: function () {
         try {
@@ -142,7 +160,13 @@ Clipboard.prototype = {
             }
         }
         finally {
-            this.button.parentNode.removeChild(this._txtBox);
+            // this.button.parentNode.removeChild(this._txtBox);
+
+            if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+                window.getSelection().removeAllRanges();
+            } else {
+                this.button.parentNode.removeChild(this._txtBox);
+            }
         }
     },
     _complete: function () {

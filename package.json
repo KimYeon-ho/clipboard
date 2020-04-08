@@ -1,6 +1,6 @@
 {
   "name": "jd-clipboard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "clipboard copy and callback support.",
   "main": "js/clipboard.js",
   "dependencies": {
